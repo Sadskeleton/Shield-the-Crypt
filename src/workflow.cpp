@@ -28,27 +28,14 @@ int main()
     //角色数据
     Hero::HeroData hero(100, 10);
 
+    //函数声明
+    void firstRunText();
+
     while(g_running && !terminated && !failed)
     {
         if (firstRun)
         {
-            std::cout << "欢迎来到" << std::endl;
-            Sleep(1000);
-            std::cout << "----------Shield The Crypt----------" << std::endl;
-            Sleep(1000);
-            std::cout << "这是个回合制游戏，玩家需要在每个回合选择一个行为。" << std::endl;
-            Sleep(1000);
-            std::cout << "击败众多怪物，保护你的墓穴！" << std::endl;
-            Sleep(1000);
-            std::cout << "OK" << std::endl;
-            Sleep(1000);
-            std::cout << "接下来..." << std::endl;
-            Sleep(1000);
-            for (int i = 0; i < 50; i++)
-            {
-                std::cout << "made by Sadskeleton" << std::endl;
-                Sleep(10);
-            }
+            firstRunText();
 
             system("cls");
             firstRun = false;
@@ -58,4 +45,25 @@ int main()
         terminated = true; // 目前先直接结束循环，后续会根据游戏状态来设置这个变量
     }
     return 0;
+}
+
+void firstRunText()
+{
+        std::cout << "欢迎来到" << std::endl;
+        Sleep(1000);
+        std::cout << "----------Shield The Crypt----------" << std::endl;
+        Sleep(1000);
+        std::cout << "这是个回合制游戏，玩家需要在每个回合选择一个行为。" << std::endl;
+        Sleep(1000);
+        std::cout << "击败众多怪物，保护你的墓穴！" << std::endl;
+        Sleep(1000);
+        std::cout << "OK" << std::endl;
+        Sleep(1000);
+        std::cout << "接下来..." << std::endl;
+        Sleep(1000);
+        for (int i = 0; i < 50; i++)
+        {
+            std::cout << "made by Sadskeleton" << std::endl;
+            Sleep(10);
+        }
 }
