@@ -10,6 +10,6 @@ namespace Monster
         std::string name;
         int id;
 
-        MonsterData(int hp, int damage, const std::string& name, int id);
+        MonsterData(int hp, int damage, const std::string name, int id);
     };
 };
