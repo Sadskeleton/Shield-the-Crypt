@@ -1,8 +1,10 @@
 #pragma once
-#include "Entity/Hero/HeroData.h"
 
+namespace Monster { class MonsterData; }
 namespace Hero
 {
+	class HeroData;
+
 	class HeroBehaviour
 	{
 		public:
@@ -12,10 +14,10 @@ namespace Hero
 				Rest
 			};
 			
-			void ChooseBehaviour(HeroData& hero, Behaviour behaviour);
+			static void ChooseBehaviour(HeroData& hero, Behaviour behaviour, Monster::MonsterData& monster);
 			
 		private:
-			void Attack(const HeroData& hero, int targetID);
-			void Rest(HeroData& hero);
+			static void Attack(const HeroData& hero, Monster::MonsterData& monster);
+			static void Rest(HeroData& hero);
 	};
 };

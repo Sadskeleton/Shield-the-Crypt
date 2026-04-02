@@ -1,20 +1,18 @@
 #include "Entity/Hero/HeroBehaviour.h"
 #include "Entity/Hero/HeroData.h"
+#include "Entity/Monster/MonsterData.h"
 #include <iostream>
 using namespace Hero;
 
-void HeroBehaviour::ChooseBehaviour(HeroData& hero, Behaviour behaviour)
+void HeroBehaviour::ChooseBehaviour(HeroData& hero, HeroBehaviour::Behaviour behaviour, Monster::MonsterData& monster)
 {
 	switch(behaviour)
     {
-        case Behaviour::Attack:
-            int id;
-            std::cout << "请输入目标ID:";
-            std::cin >> id;
-            Attack(hero, id);
+        case HeroBehaviour::Behaviour::Attack:
+            Attack(hero, monster);
             break;
         
-        case Behaviour::Rest:
+        case HeroBehaviour::Behaviour::Rest:
             Rest(hero);
             break;
         
@@ -24,14 +22,14 @@ void HeroBehaviour::ChooseBehaviour(HeroData& hero, Behaviour behaviour)
     }
 }
 
-void HeroBehaviour::Attack(const HeroData& hero, int targetID)
+void HeroBehaviour::Attack(const HeroData& hero, Monster::MonsterData& monster)
 {
-
+    monster.currentHp = (monster.currentHp - hero.damage) > 0 ? (monster.currentHp - hero.damage) : 0;
 }
 
 void HeroBehaviour::Rest(HeroData& hero)
 {
-    hero.currentHp += hero.maxHp * 0.1; // 恢复10%最大hp
+    hero.currentHp += static_cast<int>(hero.maxHp * 0.1); // 恢复10%最大hp
     
     if (hero.currentHp > hero.maxHp)
     {

@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity/EntityData.h"
+#include "Entity/Monster/MonsterBehaviour.h"
 #include <string>
 
 namespace Monster
@@ -8,8 +9,9 @@ namespace Monster
     {
         public:
         std::string name;
-        int id;
+        std::string text = "";
+        MonsterBehaviour::Behaviour next_behaviour = MonsterBehaviour::Behaviour::None;
 
-        MonsterData(int hp, int damage, const std::string name, int id);
+        MonsterData(int hp, int damage, const std::string& name);
     };
 };

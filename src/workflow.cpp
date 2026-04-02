@@ -3,6 +3,9 @@
 #include <string>
 #include "Entity/Hero/HeroData.h"
 #include "Entity/Hero/HeroBehaviour.h"
+#include "Entity/Monster/MonsterData.h"
+#include "Entity/Monster/MonsterBehaviour.h"
+#include "Entity/Monster/MonsterInfo.h"
 
 bool g_running = true;
 
@@ -31,17 +34,34 @@ int main()
 
     //函数声明
     void firstRunText();
-    void firstRunUI();
+    void refreshUI(int rounds, Monster::MonsterData monster);
 
     while(g_running && !terminated && !failed)
     {
+        total_rounds++;
+        int rounds = 0;
+        bool monsterDefeated = false;
+
+        //生成Monster
+        const auto& monsterStat = Monster::MonsterInfo::info.at(total_rounds);
+        Monster::MonsterData monster(monsterStat.hp, monsterStat.attack, monsterStat.name);
+
         if (firstRun)
         {
+            Monster::MonsterBehaviour::ChooseBehaviour(monster, hero);
+
             firstRunText();
 
-            firstRunUI();
+            refreshUI(rounds, monster);
 
             firstRun = false;
+        }
+
+        while (g_running && !monsterDefeated)
+        {
+            rounds++;
+            Monster::MonsterBehaviour::ChooseBehaviour(monster, hero);
+            monsterDefeated = true; // 目前先直接结束循环，后续会根据怪物状态来设置这个变量
         }
 
         Sleep(50);
@@ -58,7 +78,7 @@ void firstRunText()
         Sleep(1000);
         std::cout << "这是个回合制游戏，玩家需要在每个回合选择一个行为。" << std::endl;
         Sleep(1000);
-        std::cout << "击败众多怪物，保护你的墓穴！" << std::endl;
+        std::cout << "击败众多怪物，保护你的地穴！" << std::endl;
         Sleep(1000);
         std::cout << "那么" << std::endl;
         Sleep(1000);
@@ -80,7 +100,7 @@ void firstRunText()
         system("cls");
 }
 
-void refreshRunUI()
+void refreshUI(int rounds, Monster::MonsterData monster)
 {
     for (const char& c : hero.name)
     {
@@ -169,4 +189,55 @@ void refreshRunUI()
         std::cout << c;
         Sleep(10);
     }
+
+    for (int i = 0; i < 4; i++)
+    {
+        std::cout << " ";
+        Sleep(10);
+    }
+
+    std::cout << "回";
+    Sleep(10);
+    std::cout << "合";
+    Sleep(10);
+    std::cout << "数";
+    Sleep(10);
+    std::cout << " ";
+    Sleep(10);
+    std::cout << ":";
+    Sleep(10);
+    std::cout << " ";
+    Sleep(10);
+    std::cout << rounds << std::endl << std::endl << std::endl;
+    Sleep(10);
+
+    for (int i = 0; i < 4; i++)
+    {
+        std::cout << " ";
+        Sleep(10);
+    }
+
+    std::cout << "你";
+    Sleep(10);
+
+    for (int i = 0; i < 27; i++)
+    {
+        std::cout << " ";
+        Sleep(10);
+    }
+
+    for (const char& c : monster.name)
+    {
+        std::cout << c;
+        Sleep(10);
+    }
+
+    std::cout << std::endl << std::endl << std::endl;
+
+    for (const char& c : monster.text)
+    {
+        std::cout << c;
+        Sleep(10);
+    }
+
 }
