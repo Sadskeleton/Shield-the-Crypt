@@ -1,1 +1,6 @@
-/build
+build/
+*.exe
+*.obj
+*.o
+*.log
+.vscode/ipch/
