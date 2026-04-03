@@ -9,6 +9,7 @@ namespace UI
         public:
         static void firstRunText(Hero::HeroData& hero);
         static void refreshUI(int rounds, Hero::HeroData& hero, Monster::MonsterData& monster);
+        static void updateData(int rounds, Hero::HeroData& hero, Monster::MonsterData& monster);
     };
 
 }

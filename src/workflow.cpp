@@ -36,7 +36,7 @@ int main()
     while(g_running && !terminated && !failed)
     {
         total_rounds++;
-        int rounds = 0;
+        int rounds = 1;
         bool monsterDefeated = false;
 
         //生成Monster
@@ -58,11 +58,34 @@ int main()
         {
             rounds++;
             Monster::MonsterBehaviour::ChooseBehaviour(monster, hero);
-            monsterDefeated = true; // 目前先直接结束循环，后续会根据怪物状态来设置这个变量
+            UI::Text::updateData(rounds, hero, monster); //更新数据
+            std::cout << std::endl;
+            Hero::HeroBehaviour::ChooseBehaviour(hero, monster);        //获取玩家输入并执行动作
+            Monster::MonsterBehaviour::ExecuteBehaviour(monster, hero); //执行怪物动作
+
+            if(monster.currentHp <= 0)
+                monsterDefeated = true;
+            
+            if(hero.currentHp <= 0)
+                break;
         }
 
         Sleep(50);
-        terminated = true; // 目前先直接结束循环，后续会根据游戏状态来设置这个变量
+
+        if (Monster::MonsterInfo::info.find(total_rounds+1) == Monster::MonsterInfo::info.end() && monsterDefeated)
+            terminated = true;
+        
+        else if (!monsterDefeated)
+            failed = true;
     }
+
+    system("cls");
+
+    if (terminated)
+        std::cout << "SUCCESSFUL!";
+
+    else
+        std::cout << "YOU ARE FAILED.";
+
     return 0;
 }

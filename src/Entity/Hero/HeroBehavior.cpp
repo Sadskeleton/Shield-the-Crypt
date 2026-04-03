@@ -4,8 +4,31 @@
 #include <iostream>
 using namespace Hero;
 
-void HeroBehaviour::ChooseBehaviour(HeroData& hero, HeroBehaviour::Behaviour behaviour, Monster::MonsterData& monster)
+void HeroBehaviour::ChooseBehaviour(HeroData& hero, Monster::MonsterData& monster)
 {
+    std::cout << "请输入你要选择的动作:1.攻击    2.休息(回复最大血量的10%)";
+    bool cinFlag = false;
+    HeroBehaviour::Behaviour behaviour = Behaviour::None;
+
+    while (!cinFlag)
+    {
+        int num;
+        std::cin >> num;
+        switch(num)
+        {
+            case 1:
+                behaviour = Behaviour::Attack;
+                cinFlag = true;
+                break;
+            case 2:
+                behaviour = Behaviour::Rest;
+                cinFlag = true;
+                break;
+            default:
+                std::cout << "请输入1或2";
+        }
+    }
+
 	switch(behaviour)
     {
         case HeroBehaviour::Behaviour::Attack:

@@ -44,7 +44,6 @@ void MonsterBehaviour::ExecuteBehaviour(MonsterData& monster, Hero::HeroData& he
 void MonsterBehaviour::Attack(MonsterData& monster, Hero::HeroData& hero)
 {
     hero.currentHp = (hero.currentHp - monster.damage) > 0 ? (hero.currentHp - monster.damage) : 0;
-    monster.text = "";
 }
 
 void MonsterBehaviour::Rest(MonsterData& monster)
@@ -55,8 +54,6 @@ void MonsterBehaviour::Rest(MonsterData& monster)
     {
         monster.currentHp = monster.maxHp;
     }
-
-    monster.text = "";
 }
 
 void MonsterBehaviour::AttackInfo(MonsterData& monster)

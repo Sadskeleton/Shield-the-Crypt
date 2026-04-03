@@ -11,10 +11,11 @@ namespace Hero
 			enum class Behaviour
 			{
 				Attack,
-				Rest
+				Rest,
+				None
 			};
 			
-			static void ChooseBehaviour(HeroData& hero, Behaviour behaviour, Monster::MonsterData& monster);
+			static void ChooseBehaviour(HeroData& hero, Monster::MonsterData& monster);
 			
 		private:
 			static void Attack(const HeroData& hero, Monster::MonsterData& monster);
